@@ -10,7 +10,11 @@ class Form extends React.Component {
 
   render() {
     return (
-      <div>Form Here</div>
+      <div>
+        <form>
+          <input></input>
+        </form>
+      </div>
     )
   }
 
