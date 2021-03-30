@@ -10,6 +10,7 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/api/individual', (req, res) => {
   console.log('Serving GET request for individual search');
@@ -25,10 +26,12 @@ app.get('/api/individual', (req, res) => {
 
 app.get('/api/group', (req, res) => {
   console.log('Serving GET request for group search');
-  const { query } = req.body;
+  const { query } = req.query;
 
   axios.get(`https://www.pricecharting.com/api/products?t=${process.env.PC_TOKEN}&q=${query}`).then((data) => {
-    res.status(200).send(data.data);
+    const { products } = data.data
+
+    res.status(200).send(products);
   }).catch((err) => {
     console.log(err);
     res.status(500).send(err);
