@@ -5,15 +5,28 @@ class Collection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: []
+      games: [],
+      value: 0
     }
   }
 
   componentDidUpdate(prevProps) {
     const { games } = this.props;
-    if (prevProps.games !== this.state.games) {
+    let newValue = 0;
+    games.forEach((game) => {
+      newValue += game['loose-price']
+    })
+    if (this.state.value !== newValue) {
       this.setState({
-        games: games
+        value: newValue
+      })
+    }
+
+    if (prevProps.games !== this.state.games) {
+
+      this.setState({
+        games: games,
+        value: newValue
       })
     }
 
@@ -21,10 +34,15 @@ class Collection extends React.Component {
 
 
   render() {
-    const { games } = this.state;
+    const { games, value } = this.state;
+    const price = (number) => {
+      let converted = number / 100;
+      let string = '$' + converted;
+      return string;
+    }
     return (
       <div id="collection">
-        <div>Collection value: $0.00</div>
+        <div>Collection value: {value === 0 ? '$0.00' : price(value)}</div>
         {games.map((game) => {
           return <GameEntry key={game.id} game={game} />
         })}
