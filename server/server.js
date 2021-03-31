@@ -55,7 +55,14 @@ app.post('/api/add', (req, res) => {
 
 app.get('/api/getCollection', (req, res) => {
   console.log('Serving GET request for game collection');
-
+  db.getCollection((err, games) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(games);
+    }
+  })
 })
 
 

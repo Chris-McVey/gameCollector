@@ -17,6 +17,14 @@ class App extends React.Component {
     this.addToCollection = this.addToCollection.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('/api/getCollection').then(({ data }) => {
+      this.setState({
+        collection: data
+      })
+    })
+  }
+
   getGames(search) {
     axios.get('/api/group', {
       params: {

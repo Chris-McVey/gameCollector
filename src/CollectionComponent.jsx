@@ -10,25 +10,33 @@ class Collection extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     const { games } = this.props;
-    let newValue = 0;
-    games.forEach((game) => {
-      newValue += game['loose-price']
-    })
-    if (this.state.value !== newValue) {
-      this.setState({
-        value: newValue
+
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      const { games } = this.props;
+      let newValue = 0;
+
+      games.forEach((game) => {
+        game['loose-price'] ? newValue += game['loose-price'] : newValue += game['loose_price']
       })
+      if (this.state.value !== newValue) {
+        this.setState({
+          value: newValue
+        })
+      }
+
+      if (prevProps.games !== this.state.games) {
+
+        this.setState({
+          games: games
+        })
+      }
     }
 
-    if (prevProps.games !== this.state.games) {
-
-      this.setState({
-        games: games,
-        value: newValue
-      })
-    }
 
   }
 
