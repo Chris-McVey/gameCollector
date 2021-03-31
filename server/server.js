@@ -53,6 +53,11 @@ app.post('/api/add', (req, res) => {
   })
 })
 
+app.get('/api/getCollection', (req, res) => {
+  console.log('Serving GET request for game collection');
+
+})
+
 
 
 
