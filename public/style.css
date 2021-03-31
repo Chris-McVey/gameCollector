@@ -1,0 +1,25 @@
+#appContainer {
+  display: grid;
+  grid-template-columns: 15% 30% 30% 15%;
+  grid-template-rows: auto auto;
+}
+
+#search {
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+#searchList {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+#collection {
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.gameEntry {
+  margin: 10px;
+}

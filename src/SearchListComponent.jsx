@@ -1,12 +1,12 @@
 import React from 'react';
-import SearchEntry from './SearchEntryComponent.jsx';
+import GameEntry from './GameEntryComponent.jsx';
 
 const SearchList = (props) => {
-  const { games } = props;
+  const { games, addGame } = props;
   return (
-    <div>
+    <div id="searchList">
       {games.map((game) => {
-        return <SearchEntry key={game.id} game={game} />
+        return <GameEntry key={game.id} game={game} addGame={addGame} />
       })}
     </div>
   )

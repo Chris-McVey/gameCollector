@@ -34,7 +34,7 @@ class Form extends React.Component {
   render() {
     const { search } = this.state;
     return (
-      <div>
+      <div id="search">
         Search for games
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleInput} value={search} type="text" />
