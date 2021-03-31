@@ -4,6 +4,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+const db = require('../database/queries.js');
+
 const app = express()
 
 const PORT = 3000;
@@ -16,8 +18,8 @@ app.get('/api/individual', (req, res) => {
   console.log('Serving GET request for individual search');
   const { query } = req.body;
 
-  axios.get(`https://www.pricecharting.com/api/product?t=${process.env.PC_TOKEN}&q=${query}`).then((data) => {
-    res.status(200).send(data.data);
+  axios.get(`https://www.pricecharting.com/api/product?t=${process.env.PC_TOKEN}&q=${query}`).then(({ data }) => {
+    res.status(200).send(data);
   }).catch((err) => {
     console.log(err);
     res.status(500).send(err);
@@ -35,6 +37,19 @@ app.get('/api/group', (req, res) => {
   }).catch((err) => {
     console.log(err);
     res.status(500).send(err);
+  })
+})
+
+app.post('/api/add', (req, res) => {
+  console.log('Serving POST request to add a game to the colleciton');
+  const { game } = req.body;
+  db.addGame(game, (err, result) => {
+    if (err) {
+      console.log(err)
+      res.status(500).send(err);
+    } else {
+      res.status(200).send('Success')
+    }
   })
 })
 

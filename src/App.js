@@ -38,6 +38,11 @@ class App extends React.Component {
         collection: prevState.collection
       }
     })
+    axios.post('/api/add', {
+      game: game
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
 
