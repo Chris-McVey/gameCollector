@@ -44,7 +44,26 @@ const getCollection = (callback) => {
   })
 }
 
+const removeGame = (id, callback) => {
+  db.connect((err, client, release) => {
+    if (err) {
+      return console.error('Error acquiring client', err.stack);
+    } else {
+      const sql = `DELETE FROM games WHERE id = ${id}`
+      client.query(sql, (err, result) => {
+        release();
+        if (err) {
+          return callback(err, null);
+        } else {
+          return callback(null, result.rows);
+        }
+      })
+    }
+  })
+}
+
 module.exports = {
   addGame,
-  getCollection
+  getCollection,
+  removeGame
 }

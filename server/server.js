@@ -65,6 +65,19 @@ app.get('/api/getCollection', (req, res) => {
   })
 })
 
+app.put('/api/remove', (req, res) => {
+  console.log('Serving PUT request to remove game');
+  const { id } = req.body;
+  db.removeGame(id, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send('Success');
+    }
+  })
+})
+
 
 
 

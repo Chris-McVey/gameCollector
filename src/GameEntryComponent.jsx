@@ -9,7 +9,7 @@ const GameEntry = (props) => {
   }
   return (
     < div className="gameEntry" onClick={() => addGame(game)} >
-      <div>{game['product-name'] || game['product_name']} - {game['console-name'] || game['console_name']} - {game['release-date'] ? game['release-date'].slice(0, 4) : null}</div>
+      <div>{game['product-name'] || game['product_name']} - {game['console-name'] || game['console_name']} - {game['release-date'] ? game['release-date'].slice(0, 4) : game['release_date'] ? game['release_date'].slice(0, 4) : null}</div>
       <div>{game.genre}</div>
       <div>Loose: {game['loose-price'] ? price(game['loose-price']) : price(game['loose_price'])}</div>
       <div>CIB: {game['cib-price'] ? price(game['cib-price']) : price(game['cib_price'])}</div>

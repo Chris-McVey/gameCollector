@@ -1,5 +1,6 @@
 import React from 'react';
 import GameEntry from './GameEntryComponent.jsx';
+const axios = require('axios');
 
 class Collection extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Collection extends React.Component {
       games: [],
       value: 0
     }
+    this.removeGame = this.removeGame.bind(this);
   }
 
   componentDidMount() {
@@ -36,8 +38,28 @@ class Collection extends React.Component {
         })
       }
     }
+  }
 
-
+  removeGame(game) {
+    let { games } = this.state;
+    let { id } = game;
+    let price = game['loose-price'] || game['loose_price'];
+    for (let i = 0; i < games.length; i++) {
+      if (games[i].id === id) {
+        games.splice(i, 1);
+      }
+    }
+    this.setState((prevState) => {
+      return {
+        games: games,
+        value: prevState.value - price
+      }
+    })
+    axios.put('/api/remove', {
+      id
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
 
@@ -52,7 +74,7 @@ class Collection extends React.Component {
       <div id="collection">
         <div>Collection value: {value === 0 ? '$0.00' : price(value)}</div>
         {games.map((game) => {
-          return <GameEntry key={game.id} game={game} />
+          return <GameEntry key={game.id} game={game} addGame={this.removeGame} />
         })}
       </div>
     )
